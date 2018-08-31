@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+
+    <!-- <link rel="stylesheet" href="css/main.css"> -->
+    <!-- <link rel="stylesheet" href="css/form-login.css"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	    <!-- Bootstrap CSS -->
+
+	    <link rel="stylesheet" href="css/main.css">
+	    <link rel="stylesheet" href="css/form-basic.css">
+	    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+
+
+
+    <title>PEMEX Recommendation Compliance Tracking</title>
+
+</head>
+
+
+	<header>
+		<h1>PEMEX Recommendation Compliance Tracking</h1>
+  </header>
+
+    <ul>
+        <li><a href="{% url 'upload' %}" >Upload</a></li>
+        <li><a class="active">Assign</a></li>
+        <!-- <li><a> Documentation</a></li> -->
+    </ul>
+
+
+    <div class="main-content">
+
+
+
+
+        <form class="form-labels-on-top" method="post" action="#">
+
+            <div class="form-title-row">
+                <h1>Select Relevant Categories</h1>
+            </div>
+
+            <div class="form-row">
+            <div class="form-column">
+                <label>
+                    <span>Installation</span>
+                    <select name="dropdown">
+                        <option>Option One</option>
+                        <option>Option Two</option>
+                        <option>Option Three</option>
+                        <option>Option Four</option>
+                    </select>
+                </label>
+            </div>
+            <div class="form-column">
+                <label>
+                    <span>Recommendation</span>
+                    <select name="dropdown">
+                        <option>Option One</option>
+                        <option>Option Two</option>
+                        <option>Option Three</option>
+                        <option>Option Four</option>
+                    </select>
+                </label>
+            </div>
+            <div class="form-column">
+                <label>
+                    <span>Verification Action</span>
+                    <select name="dropdown">
+                        <option>Option One</option>
+                        <option>Option Two</option>
+                        <option>Option Three</option>
+                        <option>Option Four</option>
+                    </select>
+                </label>
+            </div>
+            <div class="form-column">
+                <label>
+                    <span>Conformance Criteria</span>
+                    <select name="dropdown">
+                        <option>Option One</option>
+                        <option>Option Two</option>
+                        <option>Option Three</option>
+                        <option>Option Four</option>
+                    </select>
+                </label>
+            </div>
+          </div>
+            <div class="form-row">
+                <button type="submit">Refresh Filter</button>
+            </div>
+        </form>
+        <form class="form-labels-on-top" method="post" action="#">
+
+            <div class="form-title-row">
+                <h1>Select Specific Relevant Entries)</h1>
+            </div>
+
+            <div class="form-row">
+              <!-- DataTables Example -->
+  	          <div class="card mb-3">
+  	              <div class="table-responsive">
+  	                <table class="table table-borderless table-striped" id="dataTable" width="100%" cellspacing="0">
+  	                  <thead>
+  	                    <tr>
+  	                      <th>Installation</th>
+  	                      <th>Recommendation</th>
+  	                      <th>Verification Action</th>
+  	                      <th>Compliance Criteria</th>
+  	                      <th>Evidence</th>
+                          <th>Include?</th>
+  	                    </tr>
+  	                  </thead>
+  	                  <tbody>
+  	                    <tr>
+  	                      <td>"AAA"</td>
+  	                      <td>"2.3 a"</td>
+  	                      <td>"Verify that something happened."</td>
+  	                      <td>"Check that the compliance criteria have been satisfied."</td>
+  	                      <td>"2 documents"</td>
+                          <td>
+                              <input type="checkbox" name="checkbox" unchecked>
+                          </td>
+  	                    </tr>
+                        <tr>
+                          <td>"AAB"</td>
+                          <td>"2.3 a"</td>
+                          <td>"Verify that something happened."</td>
+                          <td>"Check that the compliance criteria have been satisfied."</td>
+                          <td>"2 documents"</td>
+                          <td>
+                              <input type="checkbox" name="checkbox" unchecked>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>"AAA"</td>
+                          <td>"2.3 a"</td>
+                          <td>"Verify that something else happened."</td>
+                          <td>"Check that the other compliance criteria have been satisfied."</td>
+                          <td>"2 documents"</td>
+                          <td>
+                              <input type="checkbox" name="checkbox" unchecked>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>"AAB"</td>
+                          <td>"2.3 b"</td>
+                          <td>"Verify that something else happened."</td>
+                          <td>"Check that the other compliance criteria have been satisfied."</td>
+                          <td>"2 documents"</td>
+                          <td>
+                              <input type="checkbox" name="checkbox" unchecked>
+                          </td>
+                        </tr>
+  	                  </tbody>
+  	                </table>
+  	              </div>
+  	            </div>
+            </div>
+
+            <div class="form-row">
+                <button onclick="location.href = '{% url 'inputs' %}'" type="button">Submit Form</button>
+            </div>
+
+        </form>
+
+    </div>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

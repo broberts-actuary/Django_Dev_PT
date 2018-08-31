@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+
+    <!-- <link rel="stylesheet" href="css/main.css"> -->
+    <!-- <link rel="stylesheet" href="css/form-login.css"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	    <!-- Bootstrap CSS -->
+
+	    <link rel="stylesheet" href="css/main.css">
+	    <link rel="stylesheet" href="css/form-basic.css">
+	    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+
+
+
+    <title>PEMEX Recommendation Compliance Tracking</title>
+
+</head>
+
+
+	<header>
+		<h1>PEMEX Recommendation Compliance Tracking</h1>
+  </header>
+
+    <ul>
+        <li><a class="active">Upload</a></li>
+        <!-- <li><a class="disabled">Assign</a></li> -->
+        <!-- <li><a class="disabled">Documentation</a></li> -->
+    </ul>
+
+
+    <div class="main-content">
+
+
+
+
+        <form class="form-labels-on-top" method="post" action="#">
+
+            <div class="form-title-row">
+                <h1>Upload Evidence</h1>
+            </div>
+
+						<div class="input-group mb-3">
+						  <div class="custom-file">
+						    <input type="file" class="custom-file-input" id="inputGroupFile02">
+						    <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+						  </div>
+						  <div class="input-group-append">
+						    <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
+						  </div>
+						</div>
+
+            <div class="form-row">
+                <label>
+                    <span>Description</span>
+                    <textarea type="text" name="Description"></textarea>
+                </label>
+            </div>
+
+
+            <div class="form-row">
+                <button onclick="window.location.href = '{% url 'assign' %}'" type="button">Submit Form</button>
+
+            </div>
+
+        </form>
+
+    </div>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
