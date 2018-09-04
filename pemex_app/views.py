@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from pemex_app.models import ItemEng
-
+from django_tables2 import RequestConfig
+from pemex_app.tables import ItemEngTable
 
 # Create your views here.
 def upload(request):
@@ -12,6 +13,7 @@ def assign(request):
 
 
 def inputs(request):
-    items = ItemEng.objects.all
+    itemstable = ItemEngTable(ItemEng.objects.all())
+    RequestConfig(request).configure(itemstable)
     return render(request, 'FieldInputs.html',
-            {'items': items})
+            {'itemstable': itemstable})
