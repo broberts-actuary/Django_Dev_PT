@@ -17,3 +17,7 @@ def inputs(request):
     RequestConfig(request).configure(itemstable)
     return render(request, 'FieldInputs.html',
             {'itemstable': itemstable})
+    
+def compliance_update(request, pk):
+    return render(request, 'ComplianceStatusUpdate.html',
+            {'itemid': pk})
