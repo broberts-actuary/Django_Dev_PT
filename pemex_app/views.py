@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from pemex_app.models import ItemEng
-
+from django_tables2 import RequestConfig
+from pemex_app.tables import ItemEngTable
 
 # Create your views here.
 def home(request):
@@ -13,10 +14,14 @@ def assign(request):
     return render(request, 'AssignToItems.html')
 
 def inputs(request):
-    items = ItemEng.objects.all
+    itemstable = ItemEngTable(ItemEng.objects.all())
+    RequestConfig(request).configure(itemstable)
     return render(request, 'FieldInputs.html',
-            {'items': items})
+            {'itemstable': itemstable})
 
+def compliance_update(request, pk):
+    return render(request, 'ComplianceStatusUpdate.html',
+            {'itemid': pk})
 
 def queue_all(request):
     items = ItemEng.objects.all

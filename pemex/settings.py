@@ -25,7 +25,7 @@ SECRET_KEY = '14w&g$pfgtg5y=8zji9*9*@qi-1**c65#3to1h8)j5d*n7jwg$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['10.16.29.80', '127.0.0.1']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pemex_app',
+    'django_tables2'
 ]
 
 MIDDLEWARE = [

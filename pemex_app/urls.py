@@ -12,4 +12,6 @@ urlpatterns = [
         url(r'^q_team/$', views.queue_team, name='q_team'),
         url(r'^q_rev/$', views.queue_reviewer, name='q_rev'),
         url(r'^q_trans/$', views.queue_translator, name='q_trans'),
+
+        url(r'^update/(?P<pk>\d+)/$', views.compliance_update, name='compliance_update'),
         ]
