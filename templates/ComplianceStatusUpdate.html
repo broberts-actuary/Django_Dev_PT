@@ -5,7 +5,36 @@
 	<title></title>
 </head>
 <body>
-this is a test
-compliance status update for item_id:{{ itemid }}
+	{% if submitted %}
+		<p>Status updated.</p>
+	{% else %}
+		<form action="" method="post" novalidate>
+		<table>
+			<tr>
+				<td>Item ID</td>
+				<td>{{ itemid }}</td>
+			</tr>
+			<tr>
+				<td>Installation</td>
+				<td>{{ installation }}</td>
+			</tr>
+			<tr>
+				<td>Recommendation</td>
+				<td>{{ recommendation }}</td>
+			</tr>
+			<tr>
+				<td>Criteria</td>
+				<td>{{ criteria }}</td>
+			</tr>
+			{{ updateform.as_table }}
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" value="Submit"></td>
+			</tr>
+		</table>
+		{% csrf_token %}
+		</form>
+	{% endif %}
 </body>
 </html>
+
