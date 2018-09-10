@@ -310,3 +310,22 @@ class Priority(models.Model):
 
     def __str__(self):
         return self.desc_eng
+    
+class FieldInputsEng(models.Model):
+    id = models.IntegerField(blank=True, primary_key=True, null=False)
+    item = models.IntegerField(blank=True, null=True)
+    item_status = models.TextField(blank=True, null=True)
+    input_user = models.TextField(blank=True, null=True)
+    input_date = models.DateTimeField(blank=True, null=True)
+    input_comment_eng = models.TextField(blank=True, null=True)
+    input_comment_esp = models.TextField(blank=True, null=True)
+    language = models.IntegerField(blank=True, null=True)
+    seq_num = models.IntegerField(blank=True, null=True)
+    next_responsible = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'field_inputs_eng'
+        verbose_name_plural = 'Field Inputs View Eng'
+    def __str__(self):
+        return self.item
