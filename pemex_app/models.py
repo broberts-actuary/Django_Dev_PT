@@ -93,6 +93,19 @@ class Criteria(models.Model):
         return self.desc_eng
 
 
+class Applicability(models.Model):
+    desc_eng = models.TextField(blank=True, null=True)
+    desc_esp = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'applicability'
+        verbose_name_plural = "Applicabilities"
+
+    def __str__(self):
+        return self.desc_eng
+
+
 class Items(models.Model):
     installation = models.ForeignKey(
         Installations,
@@ -117,6 +130,15 @@ class Items(models.Model):
     )
     next_responsible = models.IntegerField(blank=True, null=True)
     next_action = models.IntegerField(blank=True, null=True)
+    applicability = models.ForeignKey(
+        Applicability,
+        models.DO_NOTHING,
+        db_column='applicability',
+        blank=True,
+        null=True,
+    )
+    applicable = models.BooleanField(blank=True, null=True)
+    next_action_temp = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = True
@@ -125,19 +147,6 @@ class Items(models.Model):
 
     def __str__(self):
         return self.id
-
-
-class Applicability(models.Model):
-    desc_eng = models.TextField(blank=True, null=True)
-    desc_esp = models.TextField(blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 'applicability'
-        verbose_name_plural = "Applicabilities"
-
-    def __str__(self):
-        return self.desc_eng
 
 
 class Status(models.Model):
@@ -156,24 +165,6 @@ class Status(models.Model):
 
     def __str__(self):
         return self.desc_eng
-
-
-class Files(models.Model):
-    filenam = models.TextField(blank=True, null=True)
-    deleted = models.BooleanField(blank=True, null=True)
-    upload_user = models.IntegerField(blank=True, null=True)
-    upload_date = models.DateTimeField(blank=True, null=True)
-    upload_comment = models.TextField(blank=True, null=True)
-    trans_eng = models.BooleanField(blank=True, null=True)
-    trans_esp = models.BooleanField(blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 'files'
-        verbose_name_plural = "Files"
-
-    def __str__(self):
-        return self.filenam
 
 
 class Evidence(models.Model):
@@ -216,50 +207,16 @@ class FieldInputs(models.Model):
     )
     input_user = models.IntegerField(blank=True, null=True)
     input_date = models.DateTimeField(blank=True, null=True)
-    input_comment = models.TextField(blank=True, null=True)
+    input_comment_eng = models.TextField(blank=True, null=True)
     seq_num = models.IntegerField(blank=True, null=True)
     trans_eng = models.BooleanField(blank=True, null=True)
     trans_esp = models.BooleanField(blank=True, null=True)
+    input_comment_esp = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = True
         db_table = 'field_inputs'
         verbose_name_plural = "Field Inputs"
-
-    def __str__(self):
-        return self.item
-
-
-class Filemap(models.Model):
-    item = models.ForeignKey(
-        'Items',
-        models.DO_NOTHING,
-        db_column='item',
-        blank=True,
-        null=True,
-    )
-    file = models.ForeignKey(
-        'Files',
-        models.DO_NOTHING,
-        db_column='file',
-        blank=True,
-        null=True,
-    )
-    evidence = models.ForeignKey(
-        Evidence,
-        models.DO_NOTHING,
-        db_column='evidence',
-        blank=True,
-        null=True,
-    )
-    map_user = models.IntegerField(blank=True, null=True)
-    map_date = models.DateTimeField(blank=True, null=True)
-    map_comment = models.TextField(blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 'filemap'
-        verbose_name_plural = "Filemap"
 
     def __str__(self):
         return self.item
@@ -289,6 +246,10 @@ class ItemEsp(models.Model):
     installation = models.TextField(blank=True, null=True)
     recommendation = models.TextField(blank=True, null=True)
     criteria = models.TextField(blank=True, null=True)
+    language = models.IntegerField(blank=True, null=True)
+    next_responsible = models.IntegerField(blank=True, null=True)
+    next_action = models.IntegerField(blank=True, null=True)
+    applicability = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False  # Created from a view. Don't remove.
@@ -310,7 +271,8 @@ class Priority(models.Model):
 
     def __str__(self):
         return self.desc_eng
-    
+
+
 class FieldInputsEng(models.Model):
     id = models.IntegerField(blank=True, primary_key=True, null=False)
     item = models.IntegerField(blank=True, null=True)
@@ -327,5 +289,6 @@ class FieldInputsEng(models.Model):
         managed = False  # Created from a view. Don't remove.
         db_table = 'field_inputs_eng'
         verbose_name_plural = 'Field Inputs View Eng'
+
     def __str__(self):
         return self.item

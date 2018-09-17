@@ -4,11 +4,12 @@ from pemex_app.models import *
 
 class FieldInputViewForm(forms.ModelForm):
     iquery = Status.objects.values_list(
-            'desc_eng',
-            flat=True,
-        )
+        'desc_eng',
+        flat=True,
+    )
     iquery_choices = [(id, id) for id in iquery]
     item_status = forms.ChoiceField(choices=iquery_choices)
+
     class Meta:
         model = FieldInputsEng
         exclude = [
@@ -21,3 +22,5 @@ class FieldInputViewForm(forms.ModelForm):
             'input_comment_eng': forms.Textarea,
             'input_comment_est': forms.Textarea
         }
+
+
