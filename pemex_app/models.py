@@ -292,3 +292,15 @@ class FieldInputsEng(models.Model):
 
     def __str__(self):
         return self.item
+
+
+class Languages(models.Model):
+    desc = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'languages'
+        verbose_name_plural = 'languages'
+
+    def __str__(self):
+        return self.desc

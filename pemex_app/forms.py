@@ -22,5 +22,3 @@ class FieldInputViewForm(forms.ModelForm):
             'input_comment_eng': forms.Textarea,
             'input_comment_est': forms.Textarea
         }
-
-
