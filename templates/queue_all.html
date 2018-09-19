@@ -4,7 +4,10 @@
 {% load render_table from django_tables2 %}
 
 
+
 	<div class="main-content">
+
+		Prefilter: {{ prefilter }}!
 
 		<form class="form-labels-on-top" method="post" action="#">
 
@@ -17,12 +20,5 @@
 
 		</form>
 	</div>
-
-
-	<!-- <div class="form-row">
-	 <button onclick="location.href = 'Main.html';" type="button">Submit Form</button>
-	 </div> -->
-
-		<!-- Button trigger modal -->
 
   {% endblock %}

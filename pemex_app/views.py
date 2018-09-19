@@ -16,18 +16,14 @@ def upload(request):
 def assign(request):
     return render(request, 'AssignToItems.html')
 
-def queue_all(request):
+def queue(request, prefilter):
+    #prefilter is based on which queue is being selected: none, user, team, reviewer
     itemstable = ItemEngTable(ItemEng.objects.all())
     RequestConfig(request).configure(itemstable)
     return render(request, 'queue_all.html',
-            {'itemstable': itemstable})
+            {'itemstable': itemstable,
+            'prefilter': prefilter})
 
-
-def inputs(request):
-    itemstable = ItemEngTable(ItemEng.objects.all())
-    RequestConfig(request).configure(itemstable)
-    return render(request, 'FieldInputs.html',
-            {'itemstable': itemstable})
 
 def update_db_view(table_name, pk_name, pk_val, field_val_dict):
     with connection.cursor() as cursor:
@@ -66,22 +62,33 @@ def compliance_update(request, pk):
 
 
 
-def queue_user(request):
-    items = ItemEng.objects.all
-    return render(request, 'queue_user.html',
-            {'items': items})
 
-def queue_team(request):
-    items = ItemEng.objects.all
-    return render(request, 'queue_team.html',
-            {'items': items})
-
-def queue_reviewer(request):
-    items = ItemEng.objects.all
-    return render(request, 'queue_reviewer.html',
-            {'items': items})
 
 def queue_translator(request):
     items = ItemEng.objects.all
     return render(request, 'queue_translator.html',
             {'items': items})
+
+
+def evidence_form(request, pk):
+    #low priority: wondering if we can pass the queue through so that we can send the user back to the queue after update.
+    """item = ItemEng.objects.get(pk=pk)
+    inputs = FieldInputsEng.objects.get(item=pk)"""
+    submitted = False
+    if request.method == 'POST':
+        updateEviform = EvidenceForm(request.POST)
+        if updateform.is_valid():
+            cd = updateform.cleaned_data
+            cd.update({'evidence_user':request.user.id})
+            #assert False
+            #update_db_view('field_inputs_eng', 'item', pk, cd)
+            return HttpResponseRedirect('?submitted=True')
+    else:
+        updateform = FieldInputViewForm(instance=inputs)
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(
+        request, 'ComplianceStatusUpdate.html', {
+            'updateform': updateEviform,
+            'submitted': submitted,
+        })
