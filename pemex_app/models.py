@@ -306,30 +306,7 @@ class Languages(models.Model):
         return self.desc
 
 
-class FileStorage(models.Model):
-    """Utility model. Do not modify"""
-    bytes = models.TextField()
-    filename = models.CharField(max_length=255)
-    mimetype = models.CharField(max_length=50)
-
-    class Meta:
-        managed = True
-        db_table = 'file_storage'
-
-
-class Documents(models.Model):
-    name = models.CharField(max_length=100)
-    document = models.FileField(
-        upload_to='pemex_app.FileStorage/bytes/filename/mimetype',
-        blank=True,
-        null=True,
-    )
-
-    class Meta:
-        managed = True
-        db_table = 'documents'
-
-
+        
 class Evidences(models.Model):
     installation = models.ForeignKey(
         Installations,
@@ -367,3 +344,46 @@ class Evidences(models.Model):
 
     def __str__(self):
         return self.desc_eng
+
+class FileStorage(models.Model):
+    """Utility model. Do not modify"""
+    bytes = models.TextField()
+    filename = models.CharField(max_length=255)
+    mimetype = models.CharField(max_length=50)
+
+    class Meta:
+        managed = True
+        db_table = 'file_storage'
+
+
+class Documents(models.Model):
+    name = models.CharField(max_length=100)
+    document = models.FileField(
+        upload_to='pemex_app.FileStorage/bytes/filename/mimetype',
+        blank=True,
+        null=True,
+    )
+    installation = models.ForeignKey(
+        Installations,
+        models.DO_NOTHING,
+        db_column='installation',
+        blank=True,
+        null=True,
+    )
+    evidence = models.ForeignKey(
+        Evidences,
+        models.DO_NOTHING,
+        db_column='evidence',
+        blank=True,
+        null=True,
+    )
+    doc_comment_eng = models.TextField(blank=True, null=True)
+    doc_comment_esp = models.TextField(blank=True, null=True)
+    evidence_user = models.IntegerField(blank=True, null=True)
+    evidence_date = models.DateTimeField(blank=True, null=True)
+    trans_eng = models.BooleanField(blank=True, null=True)
+    trans_esp = models.BooleanField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'documents'
