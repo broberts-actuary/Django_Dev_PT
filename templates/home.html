@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% block body_block %}
-{% if user.is_authenticated %}
-Hi {{ user.username }}!
+
 <h1>Task Queues</h1>
 <li><a href="{% url 'q_all' %}" >All Items</a></li>
 <li><a href="{% url 'q_user' %}" >My Queue</a></li>
@@ -15,9 +14,6 @@ Hi {{ user.username }}!
 <li><a href="{% url 'upload' %}" >Upload Evidence Files</a></li>
 <li><a href="{% url 'assign' %}" >Update Conformance Status</a></li>
 
-<p><a href="{% url 'logout' %}">logout</a></p>
-{% else %}
-<p>You are not logged in</p>
-<a href="{% url 'login' %}">login</a> 
-{% endif %}
+
+
 {% endblock %}
