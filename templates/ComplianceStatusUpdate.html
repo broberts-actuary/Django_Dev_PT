@@ -7,6 +7,7 @@
 <body>
 	{% if submitted %}
 		<p>Status updated.</p>
+		<p><a href="{% url 'task_nav' %}">home</a></p>
 	{% else %}
 		<form action="" method="post" novalidate>
 		<table>
@@ -37,4 +38,3 @@
 	{% endif %}
 </body>
 </html>
-

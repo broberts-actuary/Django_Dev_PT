@@ -26,6 +26,7 @@
     {% if user.is_authenticated %}
     Hi {{ user.username }}!
     <p><a href="{% url 'logout' %}">logout</a></p>
+    <p><a href="{% url 'task_nav' %}">home</a></p>
 
     {% block body_block %}
     {% endblock %}
