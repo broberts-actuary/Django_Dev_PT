@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from pemex_app.models import ItemEng, FieldInputsEng
+from pemex_app.models import ItemEng, FieldInputsEng, Documents
 from django_tables2 import RequestConfig
-from pemex_app.tables import ItemEngTable
+from pemex_app.tables import ItemEngTable, DocumentsTable
 from pemex_app.forms import FieldInputViewForm, DocumentForm
 from django.db import connection, transaction
 from django.http import HttpResponseRedirect
@@ -30,6 +30,12 @@ def inputs(request):
     itemstable = ItemEngTable(ItemEng.objects.all())
     RequestConfig(request).configure(itemstable)
     return render(request, 'FieldInputs.html', {'itemstable': itemstable})
+
+
+def file_retrieve(request):
+    filetable = DocumentsTable(Documents.objects.all())
+    RequestConfig(request).configure(filetable)
+    return render(request, 'FileRetrieve.html', {'filetable': filetable})
 
 
 def update_db_view(table_name, pk_name, pk_val, field_val_dict):
@@ -75,10 +81,10 @@ def model_form_upload(request):
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            #return redirect('home')
     else:
         form = DocumentForm()
-    return render(request, 'core/model_form_upload.html', {'form': form})
+    return render(request, 'FileUpload.html', {'form': form})
 
 
 def queue_user(request):

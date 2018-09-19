@@ -1,6 +1,6 @@
 from django import forms
 from pemex_app.models import *
-from db_file_storage.form_widgets import DBAdminClearableFileInput
+from db_file_storage.form_widgets import DBClearableFileInput
 
 
 class FieldInputViewForm(forms.ModelForm):
@@ -29,4 +29,4 @@ class DocumentForm(forms.ModelForm):
     class Meta:
         model = Documents
         exclude = []
-        widgets = {'document': DBAdminClearableFileInput}
+        widgets = {'document': DBClearableFileInput}
