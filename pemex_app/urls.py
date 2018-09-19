@@ -2,7 +2,7 @@ from django.conf.urls import url
 from pemex_app import views
 
 urlpatterns = [
-        url(r'^task_nav/$', views.task_nav, name='task_nav'),
+        url(r'^home/$', views.home, name='home'),
 
         url(r'^upload/$', views.upload, name='upload'),
         url(r'^assign/$', views.assign, name='assign'),

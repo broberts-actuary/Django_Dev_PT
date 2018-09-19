@@ -7,8 +7,8 @@ from django.db import connection, transaction
 from django.http import HttpResponseRedirect
 
 # Create your views here.
-def task_nav(request):
-    return render(request, 'task_nav.html')
+def home(request):
+    return render(request, 'home.html')
 
 def upload(request):
     return render(request, 'UploadEvidence.html')
