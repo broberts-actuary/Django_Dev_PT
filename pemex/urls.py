@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^pemex_app/', include('pemex_app.urls')),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
+    url(r'^files/', include('db_file_storage.urls')),
 ]

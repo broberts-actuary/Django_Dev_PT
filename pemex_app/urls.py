@@ -5,7 +5,9 @@ urlpatterns = [
         url(r'^home/$', views.home, name='home'),
 
         #url(r'^add_evidence/$', views.add_evidence, name='add_evidence'),
-        url(r'^upload/$', views.upload, name='upload'),
+
+        url(r'^upload/$', views.model_form_upload, name='upload'),
+        url(r'^fileretrieve/$', views.file_retrieve, name='fileretrieve')
         url(r'^assign/$', views.assign, name='assign'),
         url(r'^inputs/$', views.inputs, name='inputs'),
 

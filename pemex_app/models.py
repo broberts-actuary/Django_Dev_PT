@@ -306,7 +306,28 @@ class Languages(models.Model):
         return self.desc
 
 
+class FileStorage(models.Model):
+    """Utility model. Do not modify"""
+    bytes = models.TextField()
+    filename = models.CharField(max_length=255)
+    mimetype = models.CharField(max_length=50)
 
+    class Meta:
+        managed = True
+        db_table = 'file_storage'
+
+
+class Documents(models.Model):
+    name = models.CharField(max_length=100)
+    document = models.FileField(
+        upload_to='pemex_app.FileStorage/bytes/filename/mimetype',
+        blank=True,
+        null=True,
+    )
+
+    class Meta:
+        managed = True
+        db_table = 'documents'
 
 
 class Evidences(models.Model):

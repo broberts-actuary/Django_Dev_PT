@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'pemex_app',
     'django_tables2',
     'users',
+    'db_file_storage',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+DEFAULT_FILE_STORAGE = 'db_file_storage.storage.DatabaseFileStorage'

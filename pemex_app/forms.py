@@ -1,5 +1,6 @@
 from django import forms
 from pemex_app.models import *
+from db_file_storage.form_widgets import DBClearableFileInput
 
 
 class FieldInputViewForm(forms.ModelForm):
@@ -22,3 +23,10 @@ class FieldInputViewForm(forms.ModelForm):
             'input_comment_eng': forms.Textarea,
             'input_comment_est': forms.Textarea
         }
+
+
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = Documents
+        exclude = []
+        widgets = {'document': DBClearableFileInput}

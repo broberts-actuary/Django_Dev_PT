@@ -1,7 +1,7 @@
 import django_tables2 as tables
 from django_tables2.utils import A
 
-from .models import ItemEng
+from .models import ItemEng, Documents
 
 
 class ItemEngTable(tables.Table):
@@ -18,3 +18,10 @@ class ItemEngTable(tables.Table):
         model = ItemEng
         template_name = 'django_tables2/bootstrap.html'
         exclude = ('language', )
+
+
+class DocumentsTable(tables.Table):
+    class Meta:
+        model = Documents
+        template_name = 'django_tables2/bootstrap.html'
+        exclude = []
