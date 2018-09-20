@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from pemex_app.models import ItemEng, FieldInputsEng, Documents
-from pemex_app.filters import ItemFilter
-from django_tables2 import RequestConfig
-from pemex_app.tables import ItemEngTable, DocumentsTable
-from pemex_app.forms import FieldInputViewForm, DocumentForm
 from django.db import connection, transaction
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
+
+from django_tables2 import RequestConfig
+from pemex_app.filters import ItemFilter
+from pemex_app.forms import DocumentForm, FieldInputViewForm
+from pemex_app.models import Documents, FieldInputsEng, ItemEng
+from pemex_app.tables import DocumentsTable, ItemEngTable
 
 
 # Create your views here.
@@ -24,16 +25,17 @@ def assign(request):
 def queue_all(request):
     items = ItemEng.objects.all()
     data = request.GET
-    itemsfilter = ItemFilter(data, queryset=items) 
+    itemsfilter = ItemFilter(data, queryset=items)
     itemstable = ItemEngTable(itemsfilter.qs)
     RequestConfig(request).configure(itemstable)
-    return render(request, 'queue_all.html', {'itemstable': itemstable, 'itemsfilter': itemsfilter})
-
-
-def inputs(request):
-    itemstable = ItemEngTable(ItemEng.objects.all())
-    RequestConfig(request).configure(itemstable)
-    return render(request, 'FieldInputs.html', {'itemstable': itemstable})
+    return render(
+        request,
+        'queue_all.html',
+        {
+            'itemstable': itemstable,
+            'itemsfilter': itemsfilter
+        },
+    )
 
 
 def file_retrieve(request):
@@ -91,21 +93,29 @@ def model_form_upload(request):
     return render(request, 'FileUpload.html', {'form': form})
 
 
-def queue_user(request):
-    items = ItemEng.objects.all
-    return render(request, 'queue_user.html', {'items': items})
-
-
-def queue_team(request):
-    items = ItemEng.objects.all
-    return render(request, 'queue_team.html', {'items': items})
-
-
-def queue_reviewer(request):
-    items = ItemEng.objects.all
-    return render(request, 'queue_reviewer.html', {'items': items})
-
-
 def queue_translator(request):
     items = ItemEng.objects.all
     return render(request, 'queue_translator.html', {'items': items})
+
+
+def evidence_form(request, pk):
+    #low priority: wondering if we can pass the queue through so that we can send the user back to the queue after update.
+    """item = ItemEng.objects.get(pk=pk)
+    inputs = FieldInputsEng.objects.get(item=pk)"""
+    submitted = False
+    if request.method == 'POST':
+        updateEviform = EvidenceForm(request.POST)
+        if updateform.is_valid():
+            cd = updateform.cleaned_data
+            cd.update({'evidence_user': request.user.id})
+            #assert False
+            #update_db_view('field_inputs_eng', 'item', pk, cd)
+            return HttpResponseRedirect('?submitted=True')
+    else:
+        updateform = FieldInputViewForm(instance=inputs)
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'ComplianceStatusUpdate.html', {
+        'updateform': updateEviform,
+        'submitted': submitted,
+    })
