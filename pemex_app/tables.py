@@ -1,5 +1,7 @@
 import django_tables2 as tables
 from django_tables2.utils import A
+from django_filters.views import FilterView
+from django_tables2.views import SingleTableMixin
 
 from .models import ItemEng, Documents
 
@@ -25,3 +27,4 @@ class DocumentsTable(tables.Table):
         model = Documents
         template_name = 'django_tables2/bootstrap.html'
         exclude = []
+

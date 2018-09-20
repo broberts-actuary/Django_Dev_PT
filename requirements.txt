@@ -2,3 +2,5 @@ Django==2.1
 psycopg2-binary
 django-tables2
 django-db-file-storage
+django-filter
+django-bootstrap3

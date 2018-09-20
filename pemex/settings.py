@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_tables2',
     'users',
     'db_file_storage',
+    'bootstrap3'
 ]
 
 MIDDLEWARE = [

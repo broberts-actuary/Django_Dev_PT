@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from pemex_app.models import ItemEng, FieldInputsEng, Documents
+from pemex_app.filters import ItemFilter
 from django_tables2 import RequestConfig
 from pemex_app.tables import ItemEngTable, DocumentsTable
 from pemex_app.forms import FieldInputViewForm, DocumentForm
@@ -21,9 +22,12 @@ def assign(request):
 
 
 def queue_all(request):
-    itemstable = ItemEngTable(ItemEng.objects.all())
+    items = ItemEng.objects.all()
+    data = request.GET
+    itemsfilter = ItemFilter(data, queryset=items) 
+    itemstable = ItemEngTable(itemsfilter.qs)
     RequestConfig(request).configure(itemstable)
-    return render(request, 'queue_all.html', {'itemstable': itemstable})
+    return render(request, 'queue_all.html', {'itemstable': itemstable, 'itemsfilter': itemsfilter})
 
 
 def inputs(request):
