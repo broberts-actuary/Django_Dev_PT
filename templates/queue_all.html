@@ -5,8 +5,8 @@
 {% load bootstrap3 %}
 Prefilter: {{ prefilter }}
 <h3>Update Verification Status</h3>
-<form action="" method="get" class="form form-inline">
-	{% bootstrap_form itemsfilter.form layout='inline' %}
+<form action="" method="get" class="form form-row">
+	{% bootstrap_form itemsfilter.form layout='row' %}
 	{% bootstrap_button 'Apply Filters' %}
 </form>
 {% render_table itemstable %}
