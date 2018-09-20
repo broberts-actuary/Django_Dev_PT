@@ -22,7 +22,7 @@ def assign(request):
     return render(request, 'AssignToItems.html')
 
 
-def queue_all(request):
+def queue_all(request, prefilter):
     items = ItemEng.objects.all()
     data = request.GET
     itemsfilter = ItemFilter(data, queryset=items)
@@ -33,7 +33,8 @@ def queue_all(request):
         'queue_all.html',
         {
             'itemstable': itemstable,
-            'itemsfilter': itemsfilter
+            'itemsfilter': itemsfilter,
+            'prefilter': prefilter,
         },
     )
 

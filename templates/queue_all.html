@@ -3,6 +3,7 @@
 {% block body_block %}
 {% load render_table from django_tables2 %}
 {% load bootstrap3 %}
+Prefilter: {{ prefilter }}
 <h3>Update Verification Status</h3>
 <form action="" method="get" class="form form-inline">
 	{% bootstrap_form itemsfilter.form layout='inline' %}
