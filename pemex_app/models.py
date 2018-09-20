@@ -343,7 +343,7 @@ class Evidences(models.Model):
         verbose_name_plural = "Evidences"
 
     def __str__(self):
-        return self.desc_eng
+        return self.desc_eng or 'error: not found'
 
 class FileStorage(models.Model):
     """Utility model. Do not modify"""
