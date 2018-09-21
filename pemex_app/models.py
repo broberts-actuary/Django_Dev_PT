@@ -10,32 +10,34 @@
 from django.db import models
 
 
-class Assets(models.Model):
-    nam = models.TextField(blank=True, null=True)
-    code = models.TextField(blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 'assets'
-        verbose_name_plural = "Assets"
-
-    def __str__(self):
-        return self.nam
-
-
+#removed foreign key reference to asset table - unnecessary detail
+#added foreign key reference to files table - to store image
 class Installations(models.Model):
     nam = models.TextField(blank=True, null=True)
-    asset = models.ForeignKey(
-        Assets,
-        models.DO_NOTHING,
-        db_column='asset',
-        blank=True,
-        null=True,
-    )
+    asset = models.TextField(blank=True, null=True)
     processing_center = models.TextField(blank=True, null=True)
     platform_count = models.IntegerField(blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
+    """TODO:
+    image = models.ForeignKey(
+        Documents,
+        models.DO_NOTHING,
+        db_column='image',
+        blank=True,
+        null=True,
+    )
+    internal_comments_eng = models.TextField(blank=True, null=True)
+    internal_comments_esp = models.TextField(blank=True, null=True)
+    external_comments_eng = models.TextField(blank=True, null=True)
+    external_comments_esp = models.TextField(blank=True, null=True)
+    deficiencies_eng = models.TextField(blank=True, null=True)
+    deficiencies_esp = models.TextField(blank=True, null=True)
+    future_actions_eng = models.TextField(blank=True, null=True)
+    future_actions_esp = models.TextField(blank=True, null=True)
+    trans_eng = models.BooleanField(blank=True, null=True)
+    trans_esp = models.BooleanField(blank=True, null=True)"""
+
 
     class Meta:
         managed = True
@@ -47,27 +49,30 @@ class Installations(models.Model):
 
 
 class Recommendations(models.Model):
-    nam = models.TextField(blank=True, null=True)
-    prefix = models.TextField(blank=True, null=True)
-    major = models.TextField(blank=True, null=True)
-    minor = models.TextField(blank=True, null=True)
+    name = models.TextField(blank=True, null=True)
     part = models.TextField(blank=True, null=True)
     desc_eng = models.TextField(blank=True, null=True)
     desc_esp = models.TextField(blank=True, null=True)
     summary_eng = models.TextField(blank=True, null=True)
     summary_esp = models.TextField(blank=True, null=True)
-    pep_responsible = models.TextField(blank=True, null=True)
-    absg_responsible = models.TextField(blank=True, null=True)
-    installation = models.TextField(blank=True, null=True)
-    feild_verification = models.TextField(blank=True, null=True)
-    interview = models.TextField(blank=True, null=True)
-    sweetiening_plant = models.TextField(blank=True, null=True)
-    drill = models.TextField(blank=True, null=True)
-    crae = models.TextField(blank=True, null=True)
-    cases = models.TextField(blank=True, null=True)
-    abk_a2 = models.TextField(blank=True, null=True)
+    primary_reviewer = models.ForeignKey(
+        'users.CustomUser',
+        models.DO_NOTHING,
+        db_column='primary_reviewer',
+        blank=True,
+        null=True,
+    )
+    """ Kollin Requested
+    internal_comments_eng = models.TextField(blank=True, null=True)
+    internal_comments_esp = models.TextField(blank=True, null=True)
+    external_comments_eng = models.TextField(blank=True, null=True)
+    external_comments_esp = models.TextField(blank=True, null=True)
+    deficiencies_eng = models.TextField(blank=True, null=True)
+    deficiencies_esp = models.TextField(blank=True, null=True)
+    future_actions_eng = models.TextField(blank=True, null=True)
+    future_actions_esp = models.TextField(blank=True, null=True)
     trans_eng = models.BooleanField(blank=True, null=True)
-    trans_esp = models.BooleanField(blank=True, null=True)
+    trans_esp = models.BooleanField(blank=True, null=True)"""
 
     class Meta:
         managed = True
@@ -306,7 +311,7 @@ class Languages(models.Model):
         return self.desc
 
 
-        
+
 class Evidences(models.Model):
     installation = models.ForeignKey(
         Installations,
