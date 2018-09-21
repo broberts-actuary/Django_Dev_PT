@@ -13,8 +13,8 @@ from django.db import models
 #removed foreign key reference to asset table - unnecessary detail
 #added foreign key reference to files table - to store image
 class Installations(models.Model):
-    nam = models.TextField(blank=True, null=True)
-    asset = models.TextField(blank=True, null=True)
+    name = models.TextField(blank=True, null=True)
+    activo = models.TextField(blank=True, null=True)
     processing_center = models.TextField(blank=True, null=True)
     platform_count = models.IntegerField(blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
@@ -62,7 +62,7 @@ class Recommendations(models.Model):
         blank=True,
         null=True,
     )
-    """ Kollin Requested
+    """ TODO:  Kollin Requested
     internal_comments_eng = models.TextField(blank=True, null=True)
     internal_comments_esp = models.TextField(blank=True, null=True)
     external_comments_eng = models.TextField(blank=True, null=True)
@@ -80,7 +80,7 @@ class Recommendations(models.Model):
         verbose_name_plural = "Recommendations"
 
     def __str__(self):
-        return self.nam
+        return self.name
 
 
 class Criteria(models.Model):
@@ -108,18 +108,6 @@ class Criteria(models.Model):
         return self.desc_eng
 
 
-class Applicability(models.Model):
-    desc_eng = models.TextField(blank=True, null=True)
-    desc_esp = models.TextField(blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 'applicability'
-        verbose_name_plural = "Applicabilities"
-
-    def __str__(self):
-        return self.desc_eng
-
 
 class Items(models.Model):
     installation = models.ForeignKey(
@@ -143,17 +131,14 @@ class Items(models.Model):
         blank=True,
         null=True,
     )
-    next_responsible = models.IntegerField(blank=True, null=True)
-    next_action = models.IntegerField(blank=True, null=True)
-    applicability = models.ForeignKey(
-        Applicability,
+    next_responsible = models.ForeignKey(
+        'users.CustomUser',
         models.DO_NOTHING,
-        db_column='applicability',
+        db_column='criteria_user',
         blank=True,
         null=True,
     )
     applicable = models.BooleanField(blank=True, null=True)
-    next_action_temp = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = True
@@ -167,11 +152,6 @@ class Items(models.Model):
 class Status(models.Model):
     desc_eng = models.TextField(blank=True, null=True)
     desc_esp = models.TextField(blank=True, null=True)
-    type_user = models.BooleanField(blank=True, null=True)
-    type_rev = models.BooleanField(blank=True, null=True)
-    next_action = models.TextField(blank=True, null=True)
-    trans_eng = models.BooleanField(blank=True, null=True)
-    trans_esp = models.BooleanField(blank=True, null=True)
 
     class Meta:
         managed = True
@@ -182,20 +162,6 @@ class Status(models.Model):
         return self.desc_eng
 
 
-class Evidence(models.Model):
-    priority = models.IntegerField(blank=True, null=True)
-    desc_eng = models.TextField(blank=True, null=True)
-    desc_esp = models.TextField(blank=True, null=True)
-    trans_eng = models.BooleanField(blank=True, null=True)
-    trans_esp = models.BooleanField(blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 'evidence'
-        verbose_name_plural = "Evidence"
-
-    def __str__(self):
-        return self.desc_eng
 
 
 class FieldInputs(models.Model):
@@ -206,13 +172,6 @@ class FieldInputs(models.Model):
         blank=True,
         null=True,
     )
-    applicability = models.ForeignKey(
-        Applicability,
-        models.DO_NOTHING,
-        db_column='applicability',
-        blank=True,
-        null=True,
-    )
     item_status = models.ForeignKey(
         'Status',
         models.DO_NOTHING,
@@ -220,13 +179,33 @@ class FieldInputs(models.Model):
         blank=True,
         null=True,
     )
-    input_user = models.IntegerField(blank=True, null=True)
+    item_final_status = models.ForeignKey(
+        'Status',
+        models.DO_NOTHING,
+        db_column='item_final_status',
+        blank=True,
+        null=True,
+    )
+    input_user =  = models.ForeignKey(
+        'users.CustomUser',
+        models.DO_NOTHING,
+        db_column='primary_reviewer',
+        blank=True,
+        null=True,
+    )
     input_date = models.DateTimeField(blank=True, null=True)
-    input_comment_eng = models.TextField(blank=True, null=True)
     seq_num = models.IntegerField(blank=True, null=True)
+    internal_comments_eng = models.TextField(blank=True, null=True)
+    internal_comments_esp = models.TextField(blank=True, null=True)
+    external_comments_eng = models.TextField(blank=True, null=True)
+    external_comments_esp = models.TextField(blank=True, null=True)
+    deficiencies_eng = models.TextField(blank=True, null=True)
+    deficiencies_esp = models.TextField(blank=True, null=True)
+    future_actions_eng = models.TextField(blank=True, null=True)
+    future_actions_esp = models.TextField(blank=True, null=True)
     trans_eng = models.BooleanField(blank=True, null=True)
     trans_esp = models.BooleanField(blank=True, null=True)
-    input_comment_esp = models.TextField(blank=True, null=True)
+
 
     class Meta:
         managed = True
@@ -236,7 +215,7 @@ class FieldInputs(models.Model):
     def __str__(self):
         return self.item
 
-
+#TODO: change to ItemView
 class ItemEng(models.Model):
     item_id = models.IntegerField(blank=True, primary_key=True, null=False)
     installation = models.TextField(blank=True, null=True)
@@ -255,39 +234,7 @@ class ItemEng(models.Model):
     def __str__(self):
         return self.item_id
 
-
-class ItemEsp(models.Model):
-    item_id = models.IntegerField(blank=True, null=True)
-    installation = models.TextField(blank=True, null=True)
-    recommendation = models.TextField(blank=True, null=True)
-    criteria = models.TextField(blank=True, null=True)
-    language = models.IntegerField(blank=True, null=True)
-    next_responsible = models.IntegerField(blank=True, null=True)
-    next_action = models.IntegerField(blank=True, null=True)
-    applicability = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False  # Created from a view. Don't remove.
-        db_table = 'item_esp'
-        verbose_name_plural = "Items Spanish View"
-
-    def __str__(self):
-        return self.item_id
-
-
-class Priority(models.Model):
-    desc_eng = models.TextField(blank=True, null=True)
-    desc_esp = models.TextField(blank=True, null=True)
-
-    class Meta:
-        managed = True
-        db_table = 'priority'
-        verbose_name_plural = "Priority"
-
-    def __str__(self):
-        return self.desc_eng
-
-
+# TODO: change to FIeldInputsView
 class FieldInputsEng(models.Model):
     id = models.IntegerField(blank=True, primary_key=True, null=False)
     item = models.IntegerField(blank=True, null=True)
@@ -404,7 +351,13 @@ class Filemap(models.Model):
         blank=True,
         null=True,
     )
-    map_user = models.TextField(blank=True, null=True)
+    map_user = = models.ForeignKey(
+        'users.CustomUser',
+        models.DO_NOTHING,
+        db_column='criteria_user',
+        blank=True,
+        null=True,
+    )
     map_date = models.DateTimeField(blank=True, null=True)
     doc_comment_eng = models.TextField(blank=True, null=True)
     doc_comment_esp = models.TextField(blank=True, null=True)
