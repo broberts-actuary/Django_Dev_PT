@@ -134,7 +134,7 @@ class Items(models.Model):
     next_responsible = models.ForeignKey(
         'users.CustomUser',
         models.DO_NOTHING,
-        db_column='criteria_user',
+        db_column='next_reponsible',
         blank=True,
         null=True,
     )
@@ -179,17 +179,10 @@ class FieldInputs(models.Model):
         blank=True,
         null=True,
     )
-    item_final_status = models.ForeignKey(
-        'Status',
-        models.DO_NOTHING,
-        db_column='item_final_status',
-        blank=True,
-        null=True,
-    )
-    input_user =  = models.ForeignKey(
+    input_user = models.ForeignKey(
         'users.CustomUser',
         models.DO_NOTHING,
-        db_column='primary_reviewer',
+        db_column='input_user',
         blank=True,
         null=True,
     )
@@ -351,7 +344,7 @@ class Filemap(models.Model):
         blank=True,
         null=True,
     )
-    map_user = = models.ForeignKey(
+    map_user = models.ForeignKey(
         'users.CustomUser',
         models.DO_NOTHING,
         db_column='criteria_user',

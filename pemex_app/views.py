@@ -4,9 +4,9 @@ from django.shortcuts import render
 
 from django_tables2 import RequestConfig
 from pemex_app.filters import ItemFilter
-from pemex_app.forms import DocumentForm, FieldInputViewForm, FilemapForm
-from pemex_app.models import Documents, FieldInputsEng, ItemEng, Evidences
-from pemex_app.tables import DocumentsTable, ItemEngTable, EvidenceTable
+from pemex_app.forms import DocumentForm, FieldInputViewForm
+from pemex_app.models import Documents, FieldInputsEng, ItemEng
+from pemex_app.tables import DocumentsTable, ItemEngTable
 
 
 # Create your views here.
@@ -83,37 +83,6 @@ def compliance_update(request, pk):
             'criteria': item.criteria,
             'submitted': submitted,
         })
-
-
-def evidence_expand(request, pk):
-    item = ItemEng.objects.get(pk=pk)
-    evidences = Evidences.objects.filter(item_id=pk)
-    evidencetable = EvidenceTable(evidences)
-    RequestConfig(request).configure(evidencetable)
-    return render(
-        request, 'EvidenceExpand.html', {
-            'itemid': item.item_id,
-            'installation': item.installation,
-            'recommendation': item.recommendation,
-            'criteria': item.criteria,
-            'evidencetable': evidencetable,
-        })
-
-
-def evidence_add_doc(request, pk):
-    form = FilemapForm(prefix="mp")
-    sub_form = DocumentForm(prefix="fl")
-    if request.method == 'POST':
-        form = FilemapForm(request.POST, prefix="mp")
-        sub_form = DocumentForm(request.POST, request.FILES, prefix="fl")
-        if form.is_valid() and sub_form.is_valid:
-            formq = form.save(commit=False)
-            formq.file = sub_form.save()
-            formq.save()
-    return render(request, 'FileUpload.html', {
-        'form': form,
-        'sub_form': sub_form,
-    })
 
 
 def model_form_upload(request):
