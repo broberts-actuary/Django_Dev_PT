@@ -88,6 +88,16 @@ class Criteria(models.Model):
     desc_esp = models.TextField(blank=True, null=True)
     trans_eng = models.BooleanField(blank=True, null=True)
     trans_esp = models.BooleanField(blank=True, null=True)
+    active = models.BooleanField(blank=True, null=True)
+    criteria_user = models.ForeignKey(
+        'users.CustomUser',
+        models.DO_NOTHING,
+        db_column='criteria_user',
+        blank=True,
+        null=True,
+    )
+    criteria_date = models.DateTimeField(blank=True, null=True)
+
 
     class Meta:
         managed = True
@@ -336,9 +346,9 @@ class Evidences(models.Model):
     )
     priority = models.IntegerField(blank=True, null=True)
     desc_eng = models.TextField(blank=True, null=True)
-    desc_esp = models.TextField(blank=True, null=True)
     evidence_user = models.IntegerField(blank=True, null=True)
     evidence_date = models.DateTimeField(blank=True, null=True)
+    desc_esp = models.TextField(blank=True, null=True)
     trans_eng = models.BooleanField(blank=True, null=True)
     trans_esp = models.BooleanField(blank=True, null=True)
 
