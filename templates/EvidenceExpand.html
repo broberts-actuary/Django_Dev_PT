@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load render_table from django_tables2 %}
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td>Item ID</td>
+				<td>{{ itemid }}</td>
+			</tr>
+			<tr>
+				<td>Installation</td>
+				<td>{{ installation }}</td>
+			</tr>
+			<tr>
+				<td>Recommendation</td>
+				<td>{{ recommendation }}</td>
+			</tr>
+			<tr>
+				<td>Criteria</td>
+				<td>{{ criteria }}</td>
+			</tr>
+		</table>
+
+	</body>
+</html>
+{% render_table evidencetable %}

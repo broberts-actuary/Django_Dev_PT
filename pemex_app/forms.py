@@ -30,3 +30,9 @@ class DocumentForm(forms.ModelForm):
         model = Documents
         exclude = []
         widgets = {'document': DBClearableFileInput}
+
+
+class FilemapForm(forms.ModelForm):
+    class Meta:
+        model = Filemap
+        exclude = []

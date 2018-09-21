@@ -18,5 +18,7 @@ urlpatterns = [
         url(r'^q_trans/$', views.queue_translator, name='q_trans'),
 
         url(r'^update/(?P<pk>\d+)/$', views.compliance_update, name='compliance_update'),
+        url(r'^expand_evidence/(?P<pk>\d+)/$', views.evidence_expand, name='evidence_expand'),
+        url(r'^add_document/(?P<pk>\d+)/$', views.evidence_add_doc, name='evidence_add_doc'),
 
         ]

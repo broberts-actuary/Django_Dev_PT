@@ -9,6 +9,8 @@
 # but don't rename db_table values or field names.
 from django.db import models
 
+#from users.models import CustomUser
+
 
 class Assets(models.Model):
     nam = models.TextField(blank=True, null=True)
@@ -146,7 +148,7 @@ class Items(models.Model):
         verbose_name_plural = "Items"
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 class Status(models.Model):
@@ -238,7 +240,7 @@ class ItemEng(models.Model):
         verbose_name_plural = "Items English View"
 
     def __str__(self):
-        return self.item_id
+        return str(self.item_id)
 
 
 class ItemEsp(models.Model):
@@ -306,33 +308,24 @@ class Languages(models.Model):
         return self.desc
 
 
-        
 class Evidences(models.Model):
-    installation = models.ForeignKey(
-        Installations,
+    item_id = models.ForeignKey(
+        Items,
         models.DO_NOTHING,
-        db_column='installation',
-        blank=True,
-        null=True,
-    )
-    recommendation = models.ForeignKey(
-        'Recommendations',
-        models.DO_NOTHING,
-        db_column='recommendation',
-        blank=True,
-        null=True,
-    )
-    criteria = models.ForeignKey(
-        Criteria,
-        models.DO_NOTHING,
-        db_column='criteria',
+        db_column='item_id',
         blank=True,
         null=True,
     )
     priority = models.IntegerField(blank=True, null=True)
     desc_eng = models.TextField(blank=True, null=True)
     desc_esp = models.TextField(blank=True, null=True)
-    evidence_user = models.IntegerField(blank=True, null=True)
+    evidence_user = models.ForeignKey(
+        "users.CustomUser",
+        models.DO_NOTHING,
+        db_column='evidence_user',
+        blank=True,
+        null=True,
+    )
     evidence_date = models.DateTimeField(blank=True, null=True)
     trans_eng = models.BooleanField(blank=True, null=True)
     trans_esp = models.BooleanField(blank=True, null=True)
@@ -344,6 +337,7 @@ class Evidences(models.Model):
 
     def __str__(self):
         return self.desc_eng or 'error: not found'
+
 
 class FileStorage(models.Model):
     """Utility model. Do not modify"""
@@ -363,10 +357,24 @@ class Documents(models.Model):
         blank=True,
         null=True,
     )
-    installation = models.ForeignKey(
-        Installations,
+
+    class Meta:
+        managed = True
+        db_table = 'documents'
+
+
+class Filemap(models.Model):
+    item = models.ForeignKey(
+        Items,
         models.DO_NOTHING,
-        db_column='installation',
+        db_column='item',
+        blank=True,
+        null=True,
+    )
+    file = models.ForeignKey(
+        Documents,
+        models.DO_NOTHING,
+        db_column='file',
         blank=True,
         null=True,
     )
@@ -377,13 +385,13 @@ class Documents(models.Model):
         blank=True,
         null=True,
     )
+    map_user = models.TextField(blank=True, null=True)
+    map_date = models.DateTimeField(blank=True, null=True)
     doc_comment_eng = models.TextField(blank=True, null=True)
     doc_comment_esp = models.TextField(blank=True, null=True)
-    evidence_user = models.IntegerField(blank=True, null=True)
-    evidence_date = models.DateTimeField(blank=True, null=True)
     trans_eng = models.BooleanField(blank=True, null=True)
     trans_esp = models.BooleanField(blank=True, null=True)
 
     class Meta:
         managed = True
-        db_table = 'documents'
+        db_table = 'filemap'
