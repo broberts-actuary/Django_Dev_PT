@@ -4,4 +4,3 @@ django-db-file-storage
 django-filter
 django-bootstrap3
 django-debug-toolbar
-psycopg2==2.6.2
