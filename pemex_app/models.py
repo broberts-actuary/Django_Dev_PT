@@ -263,13 +263,6 @@ class Languages(models.Model):
 
 
 class Evidences(models.Model):
-    item_id = models.ForeignKey(
-        Items,
-        models.DO_NOTHING,
-        db_column='item_id',
-        blank=True,
-        null=True,
-    )
     priority = models.IntegerField(blank=True, null=True)
     desc_eng = models.TextField(blank=True, null=True)
     desc_esp = models.TextField(blank=True, null=True)
@@ -356,6 +349,7 @@ class Filemap(models.Model):
     doc_comment_esp = models.TextField(blank=True, null=True)
     trans_eng = models.BooleanField(blank=True, null=True)
     trans_esp = models.BooleanField(blank=True, null=True)
+    archived = models.BooleanField(blank=True, null=True)
 
     class Meta:
         managed = True

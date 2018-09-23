@@ -133,7 +133,6 @@ def queue_translator(request):
 
 
 def evidence_form(request, pk):
-    #low priority: wondering if we can pass the queue through so that we can send the user back to the queue after update.
     """item = ItemEng.objects.get(pk=pk)
     inputs = FieldInputsEng.objects.get(item=pk)"""
     submitted = False
