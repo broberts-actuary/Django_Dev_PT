@@ -9,10 +9,13 @@ RUN apt-get install -y \
     libfreetype6-dev \
     zlib1g-dev \
     net-tools \
-    vim
+    vim \
+    apache2 \
+    libapache2-mod-wsgi-py3
 WORKDIR /usr/src/app
 COPY . .
+COPY webserver_settings/000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN pip install --no-cache-dir -r requirements.txt
-EXPOSE 8000
+EXPOSE 80
 #STOPSIGNAL SIGINT
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

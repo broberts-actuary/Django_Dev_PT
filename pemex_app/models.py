@@ -134,7 +134,7 @@ class Items(models.Model):
     next_responsible = models.ForeignKey(
         'users.CustomUser',
         models.DO_NOTHING,
-        db_column='next_reponsible',
+        db_column='next_responsible',
         blank=True,
         null=True,
     )

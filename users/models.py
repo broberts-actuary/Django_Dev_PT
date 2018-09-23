@@ -9,14 +9,14 @@ class CustomUser(AbstractUser):
     next_responsible = models.ForeignKey(
             "CustomUser",
             models.DO_NOTHING,
-            blank=False,
-            null=False,
+            blank=True,
+            null=True,
             )
     language = models.ForeignKey(
             Languages,
             models.DO_NOTHING,
-            blank=False,
-            null=False,
+            blank=True,
+            null=True,
             )
 
     def __str__(self):
