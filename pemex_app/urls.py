@@ -20,5 +20,7 @@ urlpatterns = [
         url(r'^update/(?P<pk>\d+)/$', views.compliance_update, name='compliance_update'),
         url(r'^expand_evidence/(?P<pk>\d+)/$', views.evidence_expand, name='evidence_expand'),
         url(r'^add_document/(?P<pk>\d+)/$', views.evidence_add_doc, name='evidence_add_doc'),
+        url(r'^add_checklist/(?P<itemid>\d+)/$', views.evidence_add, name='evidence_add'),
+        url(r'^update_checklist/(?P<pk>\d+)/$', views.evidence_update, name='evidence_update'),
 
         ]

@@ -116,50 +116,27 @@ def evidence_add_doc(request, pk):
     })
 
 
-def evidence_add(request, itemid):
+def evidence_add_update(request, itemid):
     class BlankFilemapForm(FilemapForm):
         class Meta:
             model = Filemap
-            fields = []
-
+            fields=[]
     form = BlankFilemapForm(prefix="mp")
     sub_form = EvidencesForm(prefix="ev")
     if request.method == 'POST':
         form = BlankFilemapForm(request.POST, prefix="mp")
-        sub_form = EvidencesForm(request.POST, prefix="ev")
+        sub_form = EvidencesForm(request.POST, request.FILES, prefix="ev")
         if form.is_valid() and sub_form.is_valid:
             formq = form.save(commit=False)
             formq.item = Items.objects.get(id=itemid)
-            formq.map_user = request.user
+            #fromq.map_user = request.user.id
             formq.evidence = sub_form.save()
             formq.save()
     return render(request, 'evidence_add_update.html', {
         'itemid': itemid,
         'form': form,
         'sub_form': sub_form,
-    })
-
-
-def evidence_update(request, pk):
-    filemap = Filemap.objects.get(pk=pk)
-    itemid = filemap.item.id
-    form = FilemapForm(prefix="mp", instance=filemap)
-    sub_form = EvidencesForm(prefix="ev")
-    if request.method == 'POST':
-        form = FilemapForm(request.POST, prefix="mp", instance=filemap)
-        sub_form = EvidencesForm(request.POST, prefix="ev")
-        if form.is_valid() and sub_form.is_valid:
-            formq = form.save(commit=False)
-            formq.item = Items.objects.get(id=itemid)
-            formq.map_user = request.user
-            formq.evidence = sub_form.save()
-            formq.save()
-    return render(request, 'evidence_add_update.html', {
-        'itemid': itemid,
-        'form': form,
-        'sub_form': sub_form,
-    })
-
+        })
 
 def model_form_upload(request):
     if request.method == 'POST':
