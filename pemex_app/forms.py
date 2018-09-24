@@ -35,4 +35,10 @@ class DocumentForm(forms.ModelForm):
 class FilemapForm(forms.ModelForm):
     class Meta:
         model = Filemap
-        exclude = []
+        exclude = ['id', 'map_date', 'map_user', 'archived', 'item', 'evidence',]
+
+
+class EvidencesForm(forms.ModelForm):
+    class Meta:
+        model = Evidences
+        exclude = ['id', 'evidence_date', 'evidence_user',]

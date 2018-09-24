@@ -2,8 +2,8 @@ import django_tables2 as tables
 from django_filters.views import FilterView
 from django_tables2.utils import A
 from django_tables2.views import SingleTableMixin
+from .models import Documents, Filemap, ItemView
 
-from .models import Documents, ItemView, Evidences
 
 
 class ItemViewTable(tables.Table):
@@ -38,16 +38,24 @@ class DocumentsTable(tables.Table):
         exclude = []
 
 
-class EvidenceTable(tables.Table):
+class FilemapTable(tables.Table):
     add_doc = tables.LinkColumn(
-        'evidence_add_doc',
+        'evidence_add',
         args=[A('pk')],
         verbose_name='',
         accessor='pk',
         text='add file',
         attrs={'class': 'edit_link'})
 
+    mod_evidence = tables.LinkColumn(
+        'evidence_update',
+        args=[A('pk')],
+        verbose_name='',
+        accessor='pk',
+        text='modify',
+        attrs={'class': 'edit_link'})
+
     class Meta:
-        model = Evidences
+        model = Filemap
         template_name = 'django_tables2/bootstrap.html'
-        fields = ('id', 'desc_eng' )
+        exclude = []
