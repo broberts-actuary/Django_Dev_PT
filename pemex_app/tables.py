@@ -3,10 +3,10 @@ from django_filters.views import FilterView
 from django_tables2.utils import A
 from django_tables2.views import SingleTableMixin
 
-from .models import Documents, ItemEng, Evidences
+from .models import Documents, ItemView, Evidences
 
 
-class ItemEngTable(tables.Table):
+class ItemViewTable(tables.Table):
     update_compliance = tables.LinkColumn(
         'compliance_update',
         args=[A('pk')],
@@ -25,10 +25,11 @@ class ItemEngTable(tables.Table):
     item_id = tables.Column(verbose_name='Item ID')
 
     class Meta:
-        model = ItemEng
+        model = ItemView
         template_name = 'django_tables2/bootstrap.html'
-        exclude = ('language', )
-
+        #exclude english stuff
+        exclude = ('rec_eng','crit_eng','applicability')
+        #exclude spanish stuff
 
 class DocumentsTable(tables.Table):
     class Meta:

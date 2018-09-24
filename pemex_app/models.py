@@ -208,21 +208,27 @@ class FieldInputs(models.Model):
     def __str__(self):
         return self.item
 
-#TODO: change to ItemView
-class ItemEng(models.Model):
+
+
+class ItemView(models.Model):
     item_id = models.IntegerField(blank=True, primary_key=True, null=False)
     installation = models.TextField(blank=True, null=True)
-    recommendation = models.TextField(blank=True, null=True)
-    criteria = models.TextField(blank=True, null=True)
+    rec_id = models.TextField(blank=True, null=True)
+    rec_eng = models.TextField(blank=True, null=True)
+    rec_esp = models.TextField(blank=True, null=True)
+    criteria_prefix = models.TextField(blank=True, null=True)
+    crit_eng = models.TextField(blank=True, null=True)
+    crit_esp = models.TextField(blank=True, null=True)
     next_responsible = models.CharField(max_length=80, blank=True, null=True)
-    next_action = models.TextField(blank=True, null=True)
+    count_evidence = models.IntegerField(blank=True, null=True)
+    pct_complete = models.TextField(blank=True, null=True)
     applicability = models.BooleanField(blank=True, null=True)
-    language = models.IntegerField(blank=True, null=True)
+
 
     class Meta:
         managed = False  # Created from a view. Don't remove.
-        db_table = 'item_eng'
-        verbose_name_plural = "Items English View"
+        db_table = 'item_view'
+        verbose_name_plural = "Items View"
 
     def __str__(self):
         return self.item_id

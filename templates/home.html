@@ -4,17 +4,20 @@
 
 <h1>Task Queues</h1>
 <li><a href="{% url 'q_all' %}" >All Items</a></li>
-<li><a href="{% url 'q_user' %}" >My Queue</a></li>
-<li><a href="{% url 'q_team' %}" >Team Queue</a></li>
+{% comment %}
+<!--li><a href="{% url 'q_user' %}" >My Queue</a></li-->
+<!--li><a href="{% url 'q_team' %}" >Team Queue</a></li-->
 
 {% if user.username == 'admin' %}
-<li><a href="{% url 'q_rev' %}" >Approve Changes (Reviewer)</a></li>
+<!--li><a href="{% url 'q_rev' %}" >Approve Changes (Reviewer)</a></li-->
 <li><a href="{% url 'q_trans' %}" >Translate New Content (Translator)</a></li>
 {% endif %}
+
 
 <h1>Basic Actions</h1>
 <li><a href="{% url 'upload' %}" >Suggest New Evidence</a></li>
 <li><a href="{% url 'upload' %}" >Upload Evidence Files</a></li>
 <li><a href="{% url 'assign' %}" >Update Conformance Status</a></li>
+{% endcomment %}
 
 {% endblock %}

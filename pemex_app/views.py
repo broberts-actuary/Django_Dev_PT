@@ -5,8 +5,8 @@ from django.shortcuts import render
 from django_tables2 import RequestConfig
 from pemex_app.filters import ItemFilter
 from pemex_app.forms import DocumentForm, FieldInputViewForm, FilemapForm
-from pemex_app.models import Documents, Evidences, FieldInputsEng, ItemEng
-from pemex_app.tables import DocumentsTable, EvidenceTable, ItemEngTable
+from pemex_app.models import Documents, Evidences, FieldInputsEng, ItemView
+from pemex_app.tables import DocumentsTable, EvidenceTable, ItemViewTable
 
 
 # Create your views here.
@@ -23,10 +23,10 @@ def assign(request):
 
 
 def queue_all(request, prefilter):
-    items = ItemEng.objects.all()
+    items = ItemView.objects.all()
     data = request.GET
     itemsfilter = ItemFilter(data, queryset=items)
-    itemstable = ItemEngTable(itemsfilter.qs)
+    itemstable = ItemViewTable(itemsfilter.qs)
     RequestConfig(request).configure(itemstable)
     return render(
         request,
