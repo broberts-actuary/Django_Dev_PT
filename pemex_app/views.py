@@ -57,7 +57,7 @@ def update_db_view(table_name, pk_name, pk_val, field_val_dict):
 
 def compliance_update(request, pk):
     #low priority: wondering if we can pass the queue through so that we can send the user back to the queue after update.
-    item = ItemEng.objects.get(pk=pk)
+    item = ItemView.objects.get(pk=pk)
     inputs = FieldInputsEng.objects.get(item=pk)
     submitted = False
     if request.method == 'POST':
@@ -79,14 +79,16 @@ def compliance_update(request, pk):
             'updateform': updateform,
             'itemid': item.item_id,
             'installation': item.installation,
-            'recommendation': item.recommendation,
-            'criteria': item.criteria,
+            'rec_id': item.rec_id,
+            'recommendation': item.rec_esp,
+            'crit_id': item.criteria_prefix,
+            'criteria': item.crit_esp,
             'submitted': submitted,
         })
 
 
 def evidence_expand(request, pk):
-    item = ItemEng.objects.get(pk=pk)
+    item = ItemView.objects.get(pk=pk)
     maps = Filemap.objects.filter(item_id=pk)
     filemaptable = FilemapTable(maps)
     RequestConfig(request).configure(filemaptable)
@@ -94,8 +96,10 @@ def evidence_expand(request, pk):
         request, 'EvidenceExpand.html', {
             'itemid': item.item_id,
             'installation': item.installation,
-            'recommendation': item.recommendation,
-            'criteria': item.criteria,
+            'rec_id': item.rec_id,
+            'recommendation': item.rec_esp,
+            'crit_id': item.criteria_prefix,
+            'criteria': item.crit_esp,
             'filemaptable': filemaptable,
         })
 
@@ -173,12 +177,12 @@ def model_form_upload(request):
 
 
 def queue_translator(request):
-    items = ItemEng.objects.all
+    items = ItemView.objects.all
     return render(request, 'queue_translator.html', {'items': items})
 
 
 def evidence_form(request, pk):
-    """item = ItemEng.objects.get(pk=pk)
+    """item = ItemView.objects.get(pk=pk)
     inputs = FieldInputsEng.objects.get(item=pk)"""
     submitted = False
     if request.method == 'POST':
