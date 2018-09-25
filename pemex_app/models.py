@@ -233,7 +233,7 @@ class ItemView(models.Model):
     def __str__(self):
         return self.item_id
 
-# TODO: change to FIeldInputsView
+# TODO: change to FieldInputsView - this is not urgent
 class FieldInputsEng(models.Model):
     id = models.IntegerField(blank=True, primary_key=True, null=False)
     item = models.IntegerField(blank=True, null=True)
@@ -282,6 +282,7 @@ class Evidences(models.Model):
     evidence_date = models.DateTimeField(blank=True, null=True)
     trans_eng = models.BooleanField(blank=True, null=True)
     trans_esp = models.BooleanField(blank=True, null=True)
+    generic = models.BooleanField(blank=True, null=True)
 
     class Meta:
         managed = True
