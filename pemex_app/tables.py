@@ -40,7 +40,7 @@ class DocumentsTable(tables.Table):
 
 class FilemapTable(tables.Table):
     add_doc = tables.LinkColumn(
-        'evidence_add',
+        'evidence_add_doc',
         args=[A('pk')],
         verbose_name='',
         accessor='pk',

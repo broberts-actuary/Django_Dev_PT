@@ -18,5 +18,6 @@ COPY . .
 COPY webserver_settings/000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN pip install --no-cache-dir -r requirements.txt
 RUN mv /usr/lib/python3/dist-packages/psycopg2* /usr/local/lib/python3.7/site-packages
+RUN pip install --no-cache-dir psycopg2-binary
 EXPOSE 8000
 CMD ["./runserverdebug"]
