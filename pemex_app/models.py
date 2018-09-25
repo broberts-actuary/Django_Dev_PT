@@ -38,7 +38,6 @@ class Installations(models.Model):
     trans_eng = models.BooleanField(blank=True, null=True)
     trans_esp = models.BooleanField(blank=True, null=True)"""
 
-
     class Meta:
         managed = True
         db_table = 'installations'
@@ -98,7 +97,6 @@ class Criteria(models.Model):
     )
     criteria_date = models.DateTimeField(blank=True, null=True)
 
-
     class Meta:
         managed = True
         db_table = 'criteria'
@@ -106,7 +104,6 @@ class Criteria(models.Model):
 
     def __str__(self):
         return self.desc_eng
-
 
 
 class Items(models.Model):
@@ -162,8 +159,6 @@ class Status(models.Model):
         return self.desc_eng
 
 
-
-
 class FieldInputs(models.Model):
     item = models.ForeignKey(
         'Items',
@@ -199,7 +194,6 @@ class FieldInputs(models.Model):
     trans_eng = models.BooleanField(blank=True, null=True)
     trans_esp = models.BooleanField(blank=True, null=True)
 
-
     class Meta:
         managed = True
         db_table = 'field_inputs'
@@ -207,7 +201,6 @@ class FieldInputs(models.Model):
 
     def __str__(self):
         return self.item
-
 
 
 class ItemView(models.Model):
@@ -224,16 +217,15 @@ class ItemView(models.Model):
     pct_complete = models.TextField(blank=True, null=True)
     applicability = models.BooleanField(blank=True, null=True)
 
-
     class Meta:
         managed = False  # Created from a view. Don't remove.
         db_table = 'item_view'
         verbose_name_plural = "Items View"
 
     def __str__(self):
-        return self.item_id
+        return str(self.item_id)
 
-# TODO: change to FieldInputsView - this is not urgent
+
 class FieldInputsEng(models.Model):
     id = models.IntegerField(blank=True, primary_key=True, null=False)
     item = models.IntegerField(blank=True, null=True)
@@ -267,7 +259,6 @@ class Languages(models.Model):
         return self.desc
 
 
-
 class Evidences(models.Model):
     priority = models.IntegerField(blank=True, null=True)
     desc_eng = models.TextField(blank=True, null=True)
@@ -292,6 +283,7 @@ class Evidences(models.Model):
     def __str__(self):
         return self.desc_eng or 'error: not found'
 
+
 class FileStorage(models.Model):
     """Utility model. Do not modify"""
     bytes = models.TextField()
@@ -301,8 +293,6 @@ class FileStorage(models.Model):
     class Meta:
         managed = True
         db_table = 'file_storage'
-
-
 
 
 class Documents(models.Model):
@@ -361,3 +351,27 @@ class Filemap(models.Model):
     class Meta:
         managed = True
         db_table = 'filemap'
+
+
+class FieldInputsView(models.Model):
+    id = models.IntegerField(blank=True, primary_key=True, null=False)
+    item = models.IntegerField(blank=True, null=True)
+    status_eng = models.TextField(blank=True, null=True)
+    status_esp = models.TextField(blank=True, null=True)
+    int_comment_eng = models.TextField(blank=True, null=True)
+    int_comment_esp = models.TextField(blank=True, null=True)
+    ext_comment_eng = models.TextField(blank=True, null=True)
+    ext_comment_esp = models.TextField(blank=True, null=True)
+    deficiencies_eng = models.TextField(blank=True, null=True)
+    deficiencies_esp = models.TextField(blank=True, null=True)
+    input_user = models.IntegerField(blank=True, null=True)
+    input_date = models.DateTimeField(blank=True, null=True)
+    seq_num = models.IntegerField(blank=True, null=True)
+    next_responsible = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'field_inputs_view'
+
+    def __str__(self):
+        return str(self.id)

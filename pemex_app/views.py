@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django_tables2 import RequestConfig
 from pemex_app.filters import ItemFilter
 from pemex_app.forms import DocumentForm, FieldInputViewForm, FilemapForm, EvidencesForm
-from pemex_app.models import Documents, Filemap, FieldInputsEng, ItemView, Items
+from pemex_app.models import Documents, Filemap, FieldInputsView, ItemView, Items
 from pemex_app.tables import DocumentsTable, FilemapTable, ItemViewTable
 from users.models import CustomUser
 
@@ -59,7 +59,7 @@ def update_db_view(table_name, pk_name, pk_val, field_val_dict):
 def compliance_update(request, pk):
     #low priority: wondering if we can pass the queue through so that we can send the user back to the queue after update.
     item = ItemView.objects.get(pk=pk)
-    inputs = FieldInputsEng.objects.get(item=pk)
+    inputs = FieldInputsView.objects.get(item=pk)
     submitted = False
     if request.method == 'POST':
         updateform = FieldInputViewForm(request.POST)
@@ -68,9 +68,8 @@ def compliance_update(request, pk):
             user = CustomUser.objects.get(id=request.user.id)
             cd.update({'input_user': user.id})
             cd.update({'next_responsible': user.next_responsible_id})
-            cd.update({'language': user.language_id})
             #assert False
-            update_db_view('field_inputs_eng', 'item', pk, cd)
+            update_db_view('field_inputs_view', 'item', pk, cd)
             return HttpResponseRedirect('?submitted=True')
     else:
         updateform = FieldInputViewForm(instance=inputs)
