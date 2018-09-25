@@ -7,6 +7,7 @@ from pemex_app.filters import ItemFilter
 from pemex_app.forms import DocumentForm, FieldInputViewForm, FilemapForm, EvidencesForm
 from pemex_app.models import Documents, Filemap, FieldInputsEng, ItemView, Items
 from pemex_app.tables import DocumentsTable, FilemapTable, ItemViewTable
+from users.models import CustomUser
 
 
 # Create your views here.
@@ -64,9 +65,10 @@ def compliance_update(request, pk):
         updateform = FieldInputViewForm(request.POST)
         if updateform.is_valid():
             cd = updateform.cleaned_data
-            cd.update({'input_user': request.user.id})
-            cd.update({'next_responsible': request.next_responsible.id})
-            cd.update({'language': request.language.id})
+            user = CustomUser.objects.get(id=request.user.id)
+            cd.update({'input_user': user.id})
+            cd.update({'next_responsible': user.next_responsible_id})
+            cd.update({'language': user.language_id})
             #assert False
             update_db_view('field_inputs_eng', 'item', pk, cd)
             return HttpResponseRedirect('?submitted=True')
