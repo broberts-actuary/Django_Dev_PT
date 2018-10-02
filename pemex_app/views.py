@@ -48,11 +48,11 @@ def file_retrieve(request):
 
 def update_db_view(table_name, pk_name, pk_val, field_val_dict):
     with connection.cursor() as cursor:
-        for field in field_val_dict:
-            sqlstring = "UPDATE {} SET {} = {} where {} = {}".format(
-                table_name, field, "'" + str(field_val_dict[field]) + "'",
-                pk_name, pk_val)
-            cursor.execute(sqlstring)
+        listSets = ["{} = '{}'".format(field,str(field_val_dict[field])) for field in field_val_dict]
+        sets = ', '.join(listSets)
+        sqlstring = "UPDATE {} SET {} where {} = {}".format(
+            table_name, sets, pk_name, pk_val)
+        cursor.execute(sqlstring)
         transaction.commit()
 
 
