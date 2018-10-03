@@ -106,6 +106,7 @@ def evidence_expand(request, pk):
 
 
 def evidence_add_doc(request, pk):
+    filemap = Filemap.objects.get(id=pk)
     form = FilemapForm(prefix="mp")
     sub_form = DocumentForm(prefix="fl")
     if request.method == 'POST':
@@ -114,6 +115,8 @@ def evidence_add_doc(request, pk):
         if form.is_valid() and sub_form.is_valid:
             formq = form.save(commit=False)
             formq.file = sub_form.save()
+            formq.item = filemap.item
+            formq.evidence = filemap.evidence
             formq.save()
     return render(request, 'FileUpload.html', {
         'form': form,
