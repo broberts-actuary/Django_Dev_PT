@@ -4,6 +4,7 @@ Add change evidence here for item:
 {{ itemid }}
 <form method="post" enctype="multipart/form-data">
 	{% csrf_token %}
+	{{ filechoiceform.as_p }}
 	{{ form.as_p }}
 	{{ sub_form.as_p }}
 	<button type="submit">Upload</button>

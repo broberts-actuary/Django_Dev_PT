@@ -58,3 +58,7 @@ class EvidencesForm(forms.ModelForm):
             'evidence_date',
             'evidence_user',
         ]
+
+
+class KeepRemoveFile(forms.Form):
+    choice = forms.ChoiceField(choices=[['', '-------'], [True, 'Yes'], [False, 'No']], label='Keep the attached file?')

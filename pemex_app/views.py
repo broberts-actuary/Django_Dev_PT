@@ -4,8 +4,8 @@ from django.shortcuts import render
 
 from django_tables2 import RequestConfig
 from pemex_app.filters import ItemFilter
-from pemex_app.forms import DocumentForm, FieldInputViewForm, FilemapForm, EvidencesForm
-from pemex_app.models import Documents, Filemap, FieldInputsView, ItemView, Items
+from pemex_app.forms import DocumentForm, FieldInputViewForm, FilemapForm, EvidencesForm, KeepRemoveFile
+from pemex_app.models import Documents, Filemap, FieldInputsView, ItemView, Items, Evidences
 from pemex_app.tables import DocumentsTable, FilemapTable, ItemViewTable
 from users.models import CustomUser
 
@@ -151,21 +151,28 @@ def evidence_add(request, itemid):
 def evidence_update(request, pk):
     filemap = Filemap.objects.get(pk=pk)
     itemid = filemap.item.id
+    evidence = filemap.evidence
     form = FilemapForm(prefix="mp", instance=filemap)
-    sub_form = EvidencesForm(prefix="ev")
+    sub_form = EvidencesForm(prefix="ev", instance=evidence)
+    filechoiceform = KeepRemoveFile()
     if request.method == 'POST':
-        form = FilemapForm(request.POST, prefix="mp", instance=filemap)
+        form = FilemapForm(request.POST, prefix="mp")
         sub_form = EvidencesForm(request.POST, prefix="ev")
+        filechoiceform = KeepRemoveFile(request.POST)
         if form.is_valid() and sub_form.is_valid:
             formq = form.save(commit=False)
+            if not filechoiceform['choice']:
+                formq.file = None
             formq.item = Items.objects.get(id=itemid)
             formq.map_user = request.user
             formq.evidence = sub_form.save()
             formq.save()
+            #assert False
     return render(request, 'evidence_add_update.html', {
         'itemid': itemid,
         'form': form,
         'sub_form': sub_form,
+        'filechoiceform': filechoiceform,
     })
 
 

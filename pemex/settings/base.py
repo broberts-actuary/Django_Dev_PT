@@ -80,8 +80,8 @@ DATABASES = {
         'NAME': 'pemex_tracking',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': '192.168.5.83',
-        'PORT': '5432',
+        'HOST': '10.16.29.80',
+        'PORT': '5433',
     },
 }
 
